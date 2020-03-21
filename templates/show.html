@@ -15,11 +15,9 @@
             <a href="{% url 'todo:export' %}">Export to Text File</a>
             {% if messages %}
             <ul class="messages">
-                {% for message in messages %}
                 <script type="text/javascript">
-                    alert('Successfully Exported')
+                    alert('Successfully Exported in C:\\My-Todo')
                 </script>
-                    {% endfor %}
             </ul>   
             {% endif %}            
             {% if session_login_check %}

@@ -38,7 +38,6 @@ def show(request,id=None,search=None):
         # Page Number
         paginator = Paginator(object_list,2)
         page = request.GET.get('page')
-        print(page)
         try:
             object_list = paginator.page(page)
         except PageNotAnInteger:
@@ -79,9 +78,12 @@ import os
 from django.contrib import messages
 
 def export(request):
-    # os.chdir(r'C:\Users\User\desktop')
     object_list = TodoModel.objects.filter(user=request.user)
-    with open(r'C:\Users\User\desktop\\MyTodo.txt','a') as f:
+    try:
+        os.mkdir('C:\\My-Todo')
+    except:
+        pass
+    with open('C:\\My-Todo\\My-Todo.txt','a') as f:
         f.write(f"---Hey {request.user} your data is Successfully Exported---\n\n")
         for i in object_list:
             f.write(i.name + '\n' + i.data + '\n\n')
