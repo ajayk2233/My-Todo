@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="my-2 p-3 bg-white rounded shadow-sm">
+    <div class="container">
+        <form class="form-row" method="POST">
+            {% csrf_token %}
+            <div class="col-md-8 order-md-1">
+                <hr>
+                <h3>Are you sure you want to delete selected Todo?</h3>
+                <div class="col-md-12 order-md-1" align="center">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                    <a class="btn btn-secondary" href="{% url 'todo:show' %}">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

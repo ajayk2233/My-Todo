@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container">
+    <form action="{% url 'edit_profile' %}" class="form-row" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <h1 align="center" class="display-4">Profile</h1>
+                <div>
+                    {{user_form.first_name.label_tag}}
+                    {{user_form.first_name}}
+                    {{user_form.last_name.label_tag}}
+                    {{user_form.last_name}}
+                    {{user_form.email.label_tag}}
+                    {{user_form.email}}
+                    {{user_form.username.label_tag}}
+                    {{user_form.username}}
+                </div>
+                <hr>
+                <button class="btn btn-sm btn-outline-primary" type="submit">Submit</button>
+                <a href="{% url 'todo:show' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+                <a href="{% url 'password_change' %}" class="btn btn-sm btn-outline-danger">Change Password</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

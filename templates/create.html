@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+<main role="main" class="container">
+    
+    <div class="my-2 p-3 bg-white rounded shadow-sm">
+        <div class="container">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Create New</h6>
+            <form class="form-row" method="POST">
+                {% csrf_token %}
+                <div class="col-md-3 order-md-1">
+                    {{form.name.label_tag}}
+                    {{form.name}}
+                    <hr>
+                    <div align="center">
+                        <input tabindex="3" class="btn btn-sm btn-primary" type="submit" value="Add">
+                        <a tabindex="4" class="btn btn-sm btn-secondary" href="{% url 'todo:show' %}">Cancel</a>
+                    </div>
+                </div>
+                <div class="col-md-9 order-md-2">
+                    {{form.data.label_tag}}
+                    {{form.data}}<br>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

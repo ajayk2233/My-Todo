@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+<main role="main" class="container">
+    
+    <div class="my-2 p-3 bg-white rounded shadow-sm">
+        <div class="container">
+            <form class="form-row" method="POST">
+                {% csrf_token %}
+                <div class="col-md-12 order-md-1">
+                    <h4><b>{{object.name}}</b>: Detail View <u>Created on</u>: {{object.date_created}}</h4><hr>
+                    <h5>
+                        {{object.data|linebreaksbr}}
+                    </h5>
+                    <hr>
+                    <small class="d-block text-right mt-3">
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'todo:show' object.id %}">
+                            {% if object.status == False %}Pending{% else %}Checked{% endif %}
+                        </a>  
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'todo:update' object.pk %}">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'todo:delete' pk=object.pk %}">Delete</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'todo:show' %}">back</a>
+                    </small>
+                </div>
+                <div class="col-md-9 order-md-2">
+                    {{form.data.label_tag}}
+                    {{form.data}}<br>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
