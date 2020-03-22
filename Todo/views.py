@@ -8,16 +8,29 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
+def assign_page_number(request,object_list):
+    paginator = Paginator(object_list,5)
+    page = request.GET.get('page')
+    try:
+        object_list = paginator.page(page)
+    except PageNotAnInteger:
+        object_list = paginator.page(1)
+    except EmptyPage:
+        object_list = paginator.page(paginator.num_pages)
+    return object_list
+
 @login_required(login_url='/auth1/signin')
 def show(request,id=None,search=None):
+    print(type(search))
     if search is not None:
         search = request.GET.get('search')
         search = search.strip()
         if search:
-            object_list = TodoModel.objects.order_by('-id').filter(Q(name__contains=search) | Q(data__contains=search),user=request.user)
+            object_list = TodoModel.objects.filter(Q(name__contains=search) | Q(data__contains=search),user=request.user)
         else:
-            object_list = TodoModel.objects.order_by('-id').filter(user=request.user)
-        return render(request, 'show.html',{'object_list':object_list,'search':search})
+            object_list = TodoModel.objects.filter(user=request.user)
+            
+        return render(request, 'show.html',{'object_list':object_list,'search':search,'title':'My-Todo-Show'})
     if id is not None:
         object_list = TodoModel.objects.get(id=id)
         if object_list.status == False:
@@ -42,19 +55,12 @@ def show(request,id=None,search=None):
         except:
             pass
         object_list = TodoModel.objects.filter(user=request.user)
-        # Page Number
-        paginator = Paginator(object_list,2)
-        page = request.GET.get('page')
-        try:
-            object_list = paginator.page(page)
-        except PageNotAnInteger:
-            object_list = paginator.page(1)
-        except EmptyPage:
-            object_list = paginator.page(paginator.num_pages)
+        object_list = assign_page_number(request,object_list)
         return render(request,'show.html',{
             'object_list':object_list,
             'session_login_check':session_login_check,
-            'session_export':session_export
+            'session_export':session_export,
+            'title':'My-Todo-Show'
             })
 
 class Details(DetailView):

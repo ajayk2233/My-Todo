@@ -7,10 +7,11 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>{{title}}</title>
+    <title>My Todo</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <!-- Bootstrap core CSS -->
     <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -29,11 +30,16 @@
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
-            text-anchor: middle;
+            text-anchor: start;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+        }
+
+        body {
+            background-color: rgb(243, 230, 219);
+            background-size: 100%;
         }
 
         @media (min-width: 768px) {
@@ -43,45 +49,64 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="offcanvas.css" rel="stylesheet">
+    <link href="product.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-lg"><a class="navbar-brand"
-            >My-Todo</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-lg">
+        <a class="navbar-brand" href="#">Aradhya</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
-                <a class="navbar-brand" href="{% url 'todo:show' %}">Show List</a>
-                <a class="navbar-brand" href="{% url 'todo:create' %}">Create New Todo</a>
-                <h4 style="color: rgb(255, 255, 255);" class="navbar-collapse">Welcome, {{user}}</h4>
-                <li class="nav-brand dropdown">
-                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'edit_profile' %}">Profile</a>
-                        <a class="dropdown-item"
-                            href="javascript:{document.getElementById('delete').submit()}">Logout</a>
-                    </div>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'edit_profile' %}">Profile<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Gallery</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Patient Data</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Doctors Data<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">OPD Record</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Daily Collection</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Career</a>
+                </li>
+
+                {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'career' %}">Career</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'contactus' %}">Contact Us</a>
+                </li>
+                
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:{document.getElementById('delete').submit()}">Logout</a>
                 </li>
                 <form method="POST" id="delete" action="{% url 'signout' %}">
                     {% csrf_token %}
                     <input type="hidden">
                 </form>
-                {% else %}
-                <a class="navbar-brand" href="{% url 'signin' %}">Login!</a>
-                <a class="navbar-brand" href="{% url 'signup' %}">Signup!</a>
                 {% endif %}
             </ul>
         </div>
     </nav>
-    <br><br><br>
-    <h3 align="center">My Todo</h3>
+    <br>
     {% block content %}
     {% endblock %}
 
@@ -94,6 +119,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <!-- Social Media Buttons Links from W3 School -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </body>
 
 </html>

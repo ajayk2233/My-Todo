@@ -7,7 +7,7 @@
                     style="color: black;">No. of items = {{object_list | length}}</label></label>
             <label>
                 <form action="/search/'search'" class="form-inline my-2 my-lg-0">{% csrf_token %}
-                    <input autofocus="true" name="search" class="form-control mr-sm-3" value="{{search}}" type="text"
+                    <input required autofocus="true" name="search" class="form-control mr-sm-3" value="{{search}}" type="text"
                         placeholder="Search by name" aria-label="Search">
                     <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
                 </form>
