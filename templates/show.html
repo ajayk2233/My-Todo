@@ -13,12 +13,11 @@
                 </form>
             </label>
             <a href="{% url 'todo:export' %}">Export to Text File</a>
-            {% if messages %}
-            <ul class="messages">
+            {% if session_export %}
+
                 <script type="text/javascript">
                     alert('Successfully Exported in C:\\My-Todo')
                 </script>
-            </ul>   
             {% endif %}            
             {% if session_login_check %}
             <label style="color: green;">{{session_login_check}}</label>

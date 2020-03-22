@@ -27,6 +27,13 @@ def show(request,id=None,search=None):
         object_list.save()    
         return redirect('/')
     else:
+        session_export = None
+        try:
+            request.session['message']
+            session_export = request.session['message']
+            del request.session['message']
+        except:
+            pass
         session_login_check = None
         try:
             request.session['login_check']
@@ -44,7 +51,11 @@ def show(request,id=None,search=None):
             object_list = paginator.page(1)
         except EmptyPage:
             object_list = paginator.page(paginator.num_pages)
-        return render(request,'show.html',{'object_list':object_list,'session_login_check':session_login_check})
+        return render(request,'show.html',{
+            'object_list':object_list,
+            'session_login_check':session_login_check,
+            'session_export':session_export
+            })
 
 class Details(DetailView):
     model = TodoModel
@@ -75,7 +86,6 @@ class Delete(DeleteView):
 
 # Export Todo List to text file
 import os
-from django.contrib import messages
 
 def export(request):
     object_list = TodoModel.objects.filter(user=request.user)
@@ -87,5 +97,5 @@ def export(request):
         f.write(f"---Hey {request.user} your data is Successfully Exported---\n\n")
         for i in object_list:
             f.write(i.name + '\n' + i.data + '\n\n')
-    messages.success(request, "Your data has been saved!")
+    request.session['message'] = 'Successfully Exported to C:\\My-Todo'
     return HttpResponseRedirect('/')
