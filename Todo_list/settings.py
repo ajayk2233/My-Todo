@@ -26,8 +26,6 @@ SECRET_KEY = 'cg3zrfgnz1(rbdtq%ve&!jrp9zd0xlj72!bdiam#*$*rcpgl!v'
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 # Application definition
 
@@ -134,3 +132,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # Production
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'ajayimp2@gmail.com'
+    EMAIL_HOST_PASSWORD = '@AJAY@ADITI@'
+    DEFAULT_FROM_EMAIL = 'My-Todo Team <noreply@ajaykhajindar.com'

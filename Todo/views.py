@@ -21,7 +21,6 @@ def assign_page_number(request,object_list):
 
 @login_required(login_url='/auth1/signin')
 def show(request,id=None,search=None):
-    print(type(search))
     if search is not None:
         search = request.GET.get('search')
         search = search.strip()
@@ -103,5 +102,5 @@ def export(request):
         f.write(f"---Hey {request.user} your data is Successfully Exported---\n\n")
         for i in object_list:
             f.write(i.name + '\n' + i.data + '\n\n')
-    request.session['message'] = 'Successfully Exported to C:\\My-Todo'
+    request.session['message'] = 'Successfully Exported to C:\\My-Todo...Click ok to go back'
     return HttpResponseRedirect('/')
